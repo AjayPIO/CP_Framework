@@ -1,0 +1,40 @@
+1). Most of the MRC tests are validating a different fio configuration against json reply of 
+APA API.
+
+2). MRC test cases are simply fio config files. Each config file is thus a MRC TC.
+
+3). Please add new TCs with extension as '*.tc' . Please see existing TCs as example.
+
+4). Specifying values for config vars : 
+4.a) Comma separated values : Multiple iterations of TC execution with csv. 
+EX: blocksizes = 4k, 8k, 16k, 32k
+
+4.b) Range value : Iterate sequentially over each value as min and max.
+EX: blocksize = 1k-4k
+This will iterate over blocksizes of 1k, 2k, 3k, 4k
+
+4.c). Single Value : Single value for config parameters.
+EX: blocksize=16k
+
+5). Directly supply the FIO command.
+EX:
+fio_cmd_str = "fio --name=randwrite --ioengine=libaio --iodepth=1 --rw=randwrite --bs=4k --direct=0 --size=512M --numjobs=8 --runtime=240 --group_reporting"
+
+When fio is utilized as a basis of any reasonably large test suite, it might be desirable to share a set of standardized
+settings across multiple job files. Instead of copy/pasting such settings, any section may pull in an external
+filename.fio file with include filename directive, as in the following example:
+
+; -- start job file including.fio --
+[global]
+filename=/tmp/test
+filesize=1m
+include glob-include.fio
+[test]
+rw=randread
+bs=4k
+time_based=1
+runtime=10
+include test-include.fio
+; -- end job file including.fio --
+
+

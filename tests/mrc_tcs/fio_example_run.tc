@@ -1,0 +1,9 @@
+[global]
+buffered=0
+rw=randread
+bs=128k
+size=512m
+directory=/data1
+
+[file1]
+iodepth=4

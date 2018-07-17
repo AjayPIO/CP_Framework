@@ -1,0 +1,12 @@
+# Random Write Fio test case.
+
+blocksize=4k
+filename=/dev/sdz
+rw=randwrite
+direct=1
+buffered=0
+ioengine=libaio
+iodepth=32
+
+# Directly supply the FIO command.
+fio_cmd_str = "fio --name=randwrite --ioengine=libaio --iodepth=1 --rw=randwrite --bs=4k --direct=0 --size=512M --numjobs=8 --runtime=240 --group_reporting"

@@ -1,0 +1,5 @@
+This is common directory for MRC related test cases.
+The fabfile.py contained here, gives flexible test infra specific to MRC tests.
+
+mrc_tests.py is the main lib, which handles all the magic of config file based MRC test framework.
+Most of the encapsulation, abstraction happens in this one lib. 

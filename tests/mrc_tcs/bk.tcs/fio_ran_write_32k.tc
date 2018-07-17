@@ -1,0 +1,14 @@
+# Basically, this is a FIO config file.
+# Testers can directly put in their fio config files and the framework will run it.
+; -- start job file --
+[random-writers]
+ioengine=libaio
+iodepth=4
+rw=randwrite
+bs=32k
+direct=0
+size=64m
+numjobs=4
+; -- end job file --
+
+fio_cmd_str = 'fio --name=random-writers --ioengine=libaio --iodepth=4 --rw=randwrite --bs=32k --direct=0 --size=64m --numjobs=4'

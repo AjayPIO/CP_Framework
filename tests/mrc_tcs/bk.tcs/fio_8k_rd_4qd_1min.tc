@@ -1,0 +1,72 @@
+# Parallel Tests : Yes / No :  Specify if this test cases is self complete and can be 
+# run in parallel. It is tester's responsibility to check if running this TC
+# in 'shared' mode will not effect its end result. 
+parallel = Yes
+
+# Test bed Modifications required for this particular test.
+[create_new]
+new_vm = 
+new_vmdk = 
+fio_tgt_device = 
+
+#########################################################################
+#
+# FIO Constants : Mostly these values are constant with most of the runs.
+# Change them at your own RISK
+#
+# You can run sequential read and write tests, as well as random read and write tests using various
+# block sizes like 4KB, 128KB, 512KB, or 1MB+. Flexibility is very important if you want to run tests
+# that replicate the "real world" environment or workload that the drive(s) will be dealing with.
+#
+########################################################################
+
+# Doing this makes it possible to directly supply this conf file to FIO tool.
+[global]
+# Name of FIO file for output. Please do not change.
+job_name = fio_8k_rd_4qd_1min.tc
+
+# FIo workload IO mixture
+rw = randread
+size = 128GB
+# By default, Fio will run tests using the sync io engine
+ioengine = sync
+
+# This option tells Fio whether or not it should use direct IO, or buffered IO. 
+# The default value is "0" which means that Fio will use use buffered I/O for the test. O_DIRECT.
+direct = 0
+
+# The fsync option tells Fio how often it should use fsync to flush "dirty data" to disk. 
+# By default this value is set to 0 which means "don't sync".
+sync = 0
+
+# Set block alignment
+unalignment = False
+
+# Set data verification flag
+veriflag = true
+
+# Set data compression flag
+compression = false
+
+
+#######################################################################
+#
+# FIO Variables : These are values most changed to permutate MRC test cases.
+#
+######################################################################
+
+# This options determines the block size for the I/O units used during the test. 
+# The default value for blocksize is 4k (4KB). This option can be set for both read and write tests. 
+# For random workloads, the default value of 4k is typically used, 
+# for sequential workloads, a value of 1M (MB) is usually used.
+blocksize = 4k
+
+# IODepth : If you are using the default sync ioengine, then increasing the iodepth beyond the 
+# default value of 1 will not have an effect. Even if you change the ioengine to use something 
+# like libaio the OS might restrict the maximum iodepth and ignore the specified value.
+iodepth = 1
+
+# Jobs : How many threads or processes should we spread this workload over
+job_num = 1
+
+
